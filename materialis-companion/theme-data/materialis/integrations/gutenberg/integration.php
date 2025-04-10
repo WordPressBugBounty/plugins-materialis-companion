@@ -116,5 +116,5 @@ function materialis_gutenberg_keep_comment_after( $text ) {
 	return $text;
 }
 
-add_filter( 'the_content', 'materialis_gutenberg_keep_comment_before', 5 );
-add_filter( 'the_content', 'materialis_gutenberg_keep_comment_after', is_customize_preview() ? 20 : 6 );
+//add_filter( 'the_content', 'materialis_gutenberg_keep_comment_before', 5 );
+//add_filter( 'the_content', 'materialis_gutenberg_keep_comment_after', is_customize_preview() ? 20 : 6 );
