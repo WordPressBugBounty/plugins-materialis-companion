@@ -2,7 +2,7 @@
 
 Contributors: horearadu, extendthemes
 Tags: materialis companion, drag, drop, builder
-Stable tag: 1.3.52
+Stable tag: 1.3.53
 Requires at least: 5.6
 Tested up to: 6.9
 License: GPLv3 or later

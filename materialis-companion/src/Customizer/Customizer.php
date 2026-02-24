@@ -317,8 +317,9 @@ class Customizer {
 						jQuery.post(ajaxurl, {
 							action: 'cp_open_in_customizer',
 							page: page,
-							mark_as_editable: true
-						}).done(function(response) {
+							mark_as_editable: true,
+                            _wpnonce: '<?php echo wp_create_nonce( 'cp_open_in_customizer_nonce' ) //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, 	WordPress.Security.EscapeOutput.UnsafePrintingFunction;?>'
+                        }).done(function(response) {
 							window.location = response.trim();
 						});
 					}

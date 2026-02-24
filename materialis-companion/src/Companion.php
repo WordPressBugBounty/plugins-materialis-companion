@@ -857,7 +857,9 @@ class Companion
 		if (!wp_verify_nonce($nonce, 'create_home_page_nounce')) {
 			die();
 		}
-
+        if ( ! is_user_logged_in() || ! current_user_can( 'edit_theme_options' ) ) {
+            die();
+        }
 		$this->__createFrontPage();
 	}
 
@@ -1034,8 +1036,9 @@ class Companion
 					function doAjaxCall(pageName) {
 						var data = {
 							action: 'cp_open_in_customizer',
-							page: page
-						};
+							page: page,
+                            _wpnonce: '<?php echo wp_create_nonce( 'cp_open_in_customizer_nonce' );  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>'
+                        };
 
 						if (pageName) {
 							data['page_name'] = pageName;
@@ -1117,7 +1120,18 @@ class Companion
 
 	public function openPageInCustomizer()
 	{
-		$post_id = intval($_REQUEST['page']);
+        check_ajax_referer('cp_open_in_customizer_nonce');
+
+
+        if ( ! is_user_logged_in() || !current_user_can('customize') ) {
+            die();
+        }
+        $post_id = isset($_POST['page']) ? intval($_POST['page']) : 0;
+
+        if (!$post_id) {
+            wp_die();
+        }
+
 		$toMark  = isset($_REQUEST['mark_as_editable']);
 
 		$post = get_post($post_id);
